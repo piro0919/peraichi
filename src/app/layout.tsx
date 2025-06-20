@@ -59,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning={true}>
       <body className={notoSansJP.className}>
-        <ThemeProvider>
+        <ThemeProvider enableSystem={false}>
           <Layout>{children}</Layout>
         </ThemeProvider>
       </body>
