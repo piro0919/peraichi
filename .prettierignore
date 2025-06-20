@@ -1,0 +1,18 @@
+# Output
+.next
+out
+coverage
+
+# Static
+.husky
+.lefthook
+*.woff2
+public
+_static
+
+# Configs & deps
+node_modules
+package-lock.json
+
+# Env
+.env*
