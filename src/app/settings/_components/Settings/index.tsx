@@ -38,6 +38,7 @@ export default function Settings(): React.JSX.Element {
                 marks={{ 12: 12, 16: 16, 20: 20, 24: 24, 28: 28, 32: 32 }}
                 max={32}
                 min={12}
+                step={2}
                 value={fontSize}
               />
             </dd>
