@@ -1,6 +1,8 @@
 "use client";
+import { ArrowLeft } from "feather-icons-react";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import Slider from "rc-slider";
 import { useShallow } from "zustand/react/shallow";
 import useSettings from "@/app/useSettings";
@@ -19,7 +21,12 @@ export default function Settings(): React.JSX.Element {
 
   return (
     <article className={styles.container}>
-      <h1 className={styles.h1}>設定</h1>
+      <header className={styles.header}>
+        <Link href="/">
+          <ArrowLeft />
+        </Link>
+        <h1 className={styles.h1}>設定</h1>
+      </header>
       <section className={styles.section}>
         <h2 className={styles.h2}>外観</h2>
         <dl>

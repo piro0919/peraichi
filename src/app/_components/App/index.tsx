@@ -12,6 +12,7 @@ export default function App(): React.JSX.Element {
     <TextareaAutosize
       className={styles.textarea}
       onChange={(e) => setValue(e.currentTarget.value)}
+      placeholder="ここに文章を入力してください"
       style={{ fontSize: `${fontSize / 10}rem` }}
       value={value}
     />
