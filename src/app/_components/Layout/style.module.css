@@ -1,0 +1,24 @@
+.container {
+  --header-height: 48px;
+}
+
+.header {
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  height: var(--header-height);
+  inset: 0 0 auto 0;
+  justify-content: space-between;
+  padding: 0 clamp(12px, 2.5dvw, 24px);
+  position: fixed;
+}
+
+.title {
+  font-size: 2.1rem;
+  font-weight: 700;
+}
+
+.main {
+  min-height: calc(100dvh - var(--header-height));
+  padding: var(--header-height) 0 0;
+}

@@ -1,0 +1,44 @@
+.container {
+  display: grid;
+  gap: clamp(12px, 2.5dvw, 24px);
+  padding: clamp(12px, 2.5dvw, 24px);
+}
+
+.h1 {
+  font-size: 2.1rem;
+}
+
+.section {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  display: grid;
+  padding: clamp(12px, 2.5dvw, 24px) clamp(12px, 2.5dvw, 24px) 0;
+}
+
+.h2 {
+  font-size: 1.8rem;
+}
+
+.item {
+  align-items: center;
+  display: grid;
+  grid-template: auto / 108px 1fr;
+  padding: clamp(12px, 2.5dvw, 24px) 0;
+}
+
+.item:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+}
+
+.term {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.description {
+  display: flex;
+}
+
+.slider {
+  height: 28px;
+}

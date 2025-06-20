@@ -1,7 +1,11 @@
 // eslint-disable-next-line filenames/match-exported
+import { ThemeProvider } from "next-themes";
 import { Noto_Sans_JP } from "next/font/google";
-import type { Metadata } from "next";
 import "./globals.css";
+import Layout from "./_components/Layout";
+import "rc-slider/assets/index.css";
+import type { Metadata } from "next";
+import "react-toggle/style.css";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -53,8 +57,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): React.JSX.Element {
   return (
-    <html lang="ja">
-      <body className={notoSansJP.className}>{children}</body>
+    <html lang="ja" suppressHydrationWarning={true}>
+      <body className={notoSansJP.className}>
+        <ThemeProvider>
+          <Layout>{children}</Layout>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
