@@ -9,6 +9,7 @@ coverage
 *.woff2
 public
 _static
+favicon.ico
 
 # Configs & deps
 node_modules
