@@ -10,6 +10,7 @@ coverage
 public
 _static
 favicon.ico
+*.png
 
 # Configs & deps
 node_modules
