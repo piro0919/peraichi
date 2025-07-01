@@ -1,5 +1,15 @@
 @import "ress";
 
+:root {
+  --background: #fff;
+  --foreground: #202124;
+}
+
+[data-theme="dark"] {
+  --background: #202124;
+  --foreground: #fff;
+}
+
 html {
   @media (width < 768px) {
     font-size: 56.25%;
@@ -14,6 +24,8 @@ html:focus-within {
 }
 
 body {
+  background-color: var(--background);
+  color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
