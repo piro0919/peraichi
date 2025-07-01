@@ -1,4 +1,11 @@
 "use client";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  useAuth,
+} from "@clerk/nextjs";
 import { ArrowLeft } from "feather-icons-react";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
@@ -18,6 +25,7 @@ export default function Settings(): React.JSX.Element {
       setFontSize: state.setFontSize,
     })),
   );
+  const { signOut } = useAuth();
 
   return (
     <article className={styles.container}>
@@ -59,6 +67,41 @@ export default function Settings(): React.JSX.Element {
                 }
                 checked={theme === "dark"}
               />
+            </dd>
+          </div>
+        </dl>
+      </section>
+      <section className={styles.section}>
+        <h2 className={styles.h2}>アカウント</h2>
+        <dl>
+          <div className={styles.item}>
+            <dt className={styles.term}>データの共通化</dt>
+            <dd className={styles.description}>
+              <div className={styles.wrapper}>
+                <div className={styles.buttonsContainer}>
+                  <SignedOut>
+                    <SignInButton>
+                      <button className={styles.button}>ログイン</button>
+                    </SignInButton>
+                    <SignUpButton>
+                      <button className={styles.button}>サインアップ</button>
+                    </SignUpButton>
+                  </SignedOut>
+                  <SignedIn>
+                    <button
+                      onClick={() => {
+                        signOut();
+                      }}
+                      className={styles.button}
+                    >
+                      ログアウト
+                    </button>
+                  </SignedIn>
+                </div>
+                <p className={styles.description2}>
+                  ログインすることで、複数の端末でデータを共有できます。
+                </p>
+              </div>
             </dd>
           </div>
         </dl>

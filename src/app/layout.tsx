@@ -1,11 +1,16 @@
 // eslint-disable-next-line filenames/match-exported
+import { jaJP } from "@clerk/localizations";
+import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 import { Noto_Sans_JP } from "next/font/google";
-import "./globals.css";
-import Layout from "./_components/Layout";
 import "rc-slider/assets/index.css";
-import type { Metadata } from "next";
+import "react-toastify/dist/ReactToastify.css";
 import "react-toggle/style.css";
+import Layout from "./_components/Layout";
+import ToastProvider from "./_components/ToastProvider";
+import ConvexClientProvider from "./ConvexClientProvider";
+import "./globals.css";
+import type { Metadata } from "next";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -57,12 +62,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): React.JSX.Element {
   return (
-    <html lang="ja" suppressHydrationWarning={true}>
-      <body className={notoSansJP.className}>
-        <ThemeProvider enableSystem={false}>
-          <Layout>{children}</Layout>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ConvexClientProvider>
+      <ClerkProvider localization={jaJP}>
+        <html lang="ja" suppressHydrationWarning={true}>
+          <body className={notoSansJP.className}>
+            <ThemeProvider enableSystem={false}>
+              <Layout>{children}</Layout>
+              <ToastProvider />
+            </ThemeProvider>
+          </body>
+        </html>
+      </ClerkProvider>
+    </ConvexClientProvider>
   );
 }

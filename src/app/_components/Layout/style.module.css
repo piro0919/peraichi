@@ -6,6 +6,7 @@
   align-items: center;
   border-bottom: 1px solid #ddd;
   display: flex;
+  gap: 12px;
   height: var(--header-height);
   inset: 0 0 auto 0;
   justify-content: space-between;
@@ -17,6 +18,20 @@
 .title {
   font-size: 2.1rem;
   font-weight: 700;
+}
+
+.button {
+  background: var(--foreground);
+  border-radius: 50dvmax;
+  color: var(--background);
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.button:disabled {
+  opacity: 0.5;
 }
 
 .main {

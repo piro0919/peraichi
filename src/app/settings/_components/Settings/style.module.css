@@ -45,6 +45,30 @@
   display: flex;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 6px;
+}
+
+.button {
+  background: var(--foreground);
+  border-radius: 50dvmax;
+  color: var(--background);
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 6px 12px;
+}
+
+.description2 {
+  font-size: 1.2rem;
+}
+
 .slider {
   height: 28px;
   margin: 0 5px;
