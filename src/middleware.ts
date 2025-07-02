@@ -1,6 +1,12 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default clerkMiddleware();
+export default clerkMiddleware(
+  process.env.NODE_ENV === "production"
+    ? {
+        authorizedParties: ["https://peraichi.kkweb.io"],
+      }
+    : undefined,
+);
 
 export const config = {
   matcher: [
