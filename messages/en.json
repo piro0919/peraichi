@@ -1,0 +1,34 @@
+{
+  "App": {
+    "placeholder": "Enter your text here"
+  },
+  "Layout": {
+    "copyAddToHomeScreenStep": "",
+    "copyDescription": "",
+    "copyShareStep": "",
+    "copyTitle": "",
+    "failedToSaveToCloud": "Failed to save to Cloud",
+    "savedToCloud": "Saved to Cloud",
+    "saveToCloud": "Save to Cloud",
+    "title": "Peraichi"
+  },
+  "Metadata": {
+    "description": "Peraichi is a simple memo service.",
+    "title": "Peraichi"
+  },
+  "Settings": {
+    "app": "App",
+    "appAndService": "App and Service",
+    "appearance": "Appearance",
+    "darkMode": "Dark Mode",
+    "dataSync": "Data Sync",
+    "dataSyncDescription": "By logging in, you can share data on multiple devices.",
+    "fontSize": "Font Size",
+    "install": "Install",
+    "language": "Language",
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Signup",
+    "title": "Settings"
+  }
+}

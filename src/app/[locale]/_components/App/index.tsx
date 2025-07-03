@@ -1,14 +1,16 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import useContent from "@/app/useContent";
-import useSettings from "@/app/useSettings";
-import { api } from "../../../../convex/_generated/api";
+import useContent from "@/app/[locale]/useContent";
+import useSettings from "@/app/[locale]/useSettings";
+import { api } from "../../../../../convex/_generated/api";
 import styles from "./style.module.css";
 
 export default function App(): React.JSX.Element {
+  const t = useTranslations("App");
   const { isSignedIn, user } = useUser();
   const content = useContent((state) => state.content);
   const setContent = useContent((state) => state.setContent);
@@ -37,7 +39,7 @@ export default function App(): React.JSX.Element {
     <TextareaAutosize
       className={styles.textarea}
       onChange={(e) => handleContentChange(e.currentTarget.value)}
-      placeholder="ここに文章を入力してください"
+      placeholder={t("placeholder")}
       style={{ fontSize: `${fontSize / 10}rem` }}
       value={content}
     />

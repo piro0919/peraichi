@@ -82,6 +82,23 @@ const eslintConfig = [
       "import/prefer-default-export": "error",
       "no-duplicate-imports": "error",
       "no-multiple-empty-lines": ["error", { max: 1 }],
+      "no-restricted-imports": [
+        "error",
+        {
+          name: "next/link",
+          message: "Please import from `@/i18n/navigation` instead.",
+        },
+        {
+          name: "next/navigation",
+          importNames: [
+            "redirect",
+            "permanentRedirect",
+            "useRouter",
+            "usePathname",
+          ],
+          message: "Please import from `@/i18n/navigation` instead.",
+        },
+      ],
       "padding-line-between-statements": [
         "error",
         {

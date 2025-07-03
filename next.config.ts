@@ -1,5 +1,6 @@
-// eslint-disable-next-line filenames/match-exported, filenames/match-regex
+// eslint-disable-next-line filenames/match-regex
 import withSerwistInit from "@serwist/next";
+import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
 
 const withSerwist = withSerwistInit({
@@ -20,5 +21,6 @@ const nextConfig: NextConfig = withSerwist({
     unoptimized: true,
   },
 });
+const withNextIntl = createNextIntlPlugin();
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

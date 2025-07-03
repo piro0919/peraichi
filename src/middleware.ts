@@ -1,12 +1,20 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import createMiddleware from "next-intl/middleware";
+import { routing } from "./i18n/routing";
 
-export default clerkMiddleware(
-  process.env.NODE_ENV === "production"
-    ? {
-        authorizedParties: ["https://peraichi.kkweb.io"],
-      }
-    : undefined,
-);
+const intlMiddleware = createMiddleware(routing);
+const isPublicRoute = createRouteMatcher(["/(.*)", "/:locale/(.*)"]);
+
+export default clerkMiddleware(async (auth, req) => {
+  if (!isPublicRoute(req)) await auth.protect();
+
+  return Object.assign(intlMiddleware(req), {
+    authorizedParties:
+      process.env.NODE_ENV === "production"
+        ? ["https://peraichi.kkweb.io"]
+        : undefined,
+  });
+});
 
 export const config = {
   matcher: [

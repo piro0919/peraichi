@@ -8,7 +8,10 @@
       "Bash(mkdir:*)",
       "Bash(npm run type-check:*)",
       "Bash(npm run lint)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(node:*)",
+      "Bash(npm --version)",
+      "Bash(git --version)"
     ],
     "deny": []
   }

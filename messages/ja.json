@@ -1,0 +1,34 @@
+{
+  "App": {
+    "placeholder": "ここに文章を入力してください"
+  },
+  "Layout": {
+    "copyAddToHomeScreenStep": "1) （四角から矢印が飛び出したマーク）をタップします。",
+    "copyDescription": "このウェブサイトにはアプリ機能があります。ホーム画面に追加してフルスクリーンおよびオフラインで使用できます。",
+    "copyShareStep": "1) （四角から矢印が飛び出したマーク）をタップします。",
+    "copyTitle": "ホーム画面に追加",
+    "failedToSaveToCloud": "保存に失敗しました",
+    "savedToCloud": "クラウドに保存しました",
+    "saveToCloud": "クラウドに保存",
+    "title": "ぺらいち"
+  },
+  "Metadata": {
+    "description": "ぺらいちは、シンプルなメモサービスです。",
+    "title": "ぺらいち"
+  },
+  "Settings": {
+    "app": "アプリ",
+    "appAndService": "アプリとサービス",
+    "appearance": "外観",
+    "darkMode": "ダークモード",
+    "dataSync": "データの共通化",
+    "dataSyncDescription": "ログインすることで、複数の端末でデータを共有できます。",
+    "fontSize": "フォントサイズ",
+    "install": "インストール",
+    "language": "言語",
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "signup": "サインアップ",
+    "title": "設定"
+  }
+}

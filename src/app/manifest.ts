@@ -1,9 +1,12 @@
+import { getTranslations } from "next-intl/server";
 import type { MetadataRoute } from "next";
 
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+  const t = await getTranslations({ locale: "en", namespace: "Metadata" });
+
   return {
     background_color: "#FFFFFF",
-    description: "ぺらいちは、シンプルなメモサービスです。",
+    description: t("description"),
     display: "standalone",
     icons: [
       {
@@ -20,11 +23,11 @@ export default function manifest(): MetadataRoute.Manifest {
       },
     ],
     id: "/",
-    lang: "ja",
-    name: "ぺらいち",
+    lang: "en",
+    name: t("title"),
     orientation: "portrait",
     scope: "/",
-    short_name: "ぺらいち",
+    short_name: t("title"),
     start_url: "/",
     theme_color: "#FFFFFF",
   };
