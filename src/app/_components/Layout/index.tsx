@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { type ReactNode } from "react";
 import Spacer from "react-spacer";
 import { toast } from "react-toastify";
+import useShowWindowSize from "use-show-window-size";
 import useContent from "@/app/useContent";
 import { api } from "../../../../convex/_generated/api";
 import styles from "./style.module.css";
@@ -39,6 +40,10 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
     }
   };
   const pathname = usePathname();
+
+  useShowWindowSize({
+    disable: process.env.NODE_ENV === "production",
+  });
 
   if (pathname === "/sign-in" || pathname === "/sign-up") {
     return <>{children}</>;

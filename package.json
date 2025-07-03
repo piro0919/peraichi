@@ -19,6 +19,7 @@
     "ress": "5.0.2",
     "svix": "1.68.0",
     "use-pwa": "2.2.0",
+    "use-show-window-size": "0.0.1",
     "usehooks-ts": "3.1.1",
     "zustand": "5.0.5"
   },
