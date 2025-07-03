@@ -41,6 +41,13 @@ export default function Settings(): React.JSX.Element {
   const pathname = usePathname();
   const router = useRouter();
 
+  console.log({
+    appinstalled,
+    canInstallprompt,
+    enabledPwa,
+    isPwa,
+  });
+
   return (
     <article className={styles.container}>
       <header className={styles.header}>
