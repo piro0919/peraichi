@@ -108,7 +108,9 @@ export default function Settings(): React.JSX.Element {
                   <SignedIn>
                     <button
                       onClick={() => {
-                        signOut();
+                        signOut({
+                          redirectUrl: "/settings",
+                        });
                       }}
                       className={styles.button}
                     >
