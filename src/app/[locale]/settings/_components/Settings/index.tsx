@@ -160,7 +160,7 @@ export default function Settings(): React.JSX.Element {
               <dd className={styles.description}>
                 <button
                   className={styles.button}
-                  disabled={!canInstallprompt || appinstalled}
+                  // disabled={!canInstallprompt || appinstalled}
                   onClick={showInstallPrompt}
                 >
                   {t("install")}
