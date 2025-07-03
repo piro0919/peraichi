@@ -88,10 +88,20 @@ export default function Settings(): React.JSX.Element {
               <div className={styles.wrapper}>
                 <div className={styles.buttonsContainer}>
                   <SignedOut>
-                    <SignInButton>
+                    <SignInButton
+                      forceRedirectUrl={
+                        process.env
+                          .NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL
+                      }
+                    >
                       <button className={styles.button}>ログイン</button>
                     </SignInButton>
-                    <SignUpButton>
+                    <SignUpButton
+                      forceRedirectUrl={
+                        process.env
+                          .NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL
+                      }
+                    >
                       <button className={styles.button}>サインアップ</button>
                     </SignUpButton>
                   </SignedOut>

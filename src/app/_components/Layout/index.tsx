@@ -40,6 +40,10 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
   };
   const pathname = usePathname();
 
+  if (pathname === "/sign-in" || pathname === "/sign-up") {
+    return <>{children}</>;
+  }
+
   return (
     <>
       <div className={styles.container}>
