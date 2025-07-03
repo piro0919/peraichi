@@ -18,8 +18,7 @@ const notoSansJP = Noto_Sans_JP({
 const APP_NAME = "ぺらいち";
 const APP_DEFAULT_TITLE = "ぺらいち";
 const APP_TITLE_TEMPLATE = "%s - ぺらいち";
-const APP_DESCRIPTION =
-  "ぺらいちは、あなたのためのパーソナルな一枚のページです。";
+const APP_DESCRIPTION = "ぺらいちは、シンプルなメモサービスです。";
 
 export const metadata: Metadata = {
   appleWebApp: {
