@@ -4,6 +4,7 @@
     "@clerk/localizations": "3.17.2",
     "@clerk/nextjs": "6.23.2",
     "@serwist/next": "9.0.15",
+    "@t3-oss/env-nextjs": "0.13.8",
     "convex": "1.25.2",
     "feather-icons-react": "0.9.0",
     "next": "15.3.4",
@@ -21,6 +22,7 @@
     "svix": "1.68.0",
     "use-pwa": "2.2.0",
     "use-show-window-size": "0.0.1",
+    "zod": "3.25.71",
     "zustand": "5.0.5"
   },
   "devDependencies": {

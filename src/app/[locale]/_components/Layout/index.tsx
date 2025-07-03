@@ -9,6 +9,7 @@ import Spacer from "react-spacer";
 import { toast } from "react-toastify";
 import useShowWindowSize from "use-show-window-size";
 import useContent from "@/app/[locale]/useContent";
+import env from "@/env";
 import { Link, usePathname } from "@/i18n/navigation";
 import { api } from "../../../../../convex/_generated/api";
 import styles from "./style.module.css";
@@ -81,7 +82,7 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
         copyDescription={t("copyDescription") || undefined}
         copyShareStep={t("copyShareStep") || undefined}
         copyTitle={t("copyTitle") || undefined}
-        isShown={process.env.NEXT_PUBLIC_IS_SHOWN_PWA_PROMPT === "true"}
+        isShown={env.NEXT_PUBLIC_IS_SHOWN_PWA_PROMPT}
         promptOnVisit={1}
         timesToShow={1}
       />

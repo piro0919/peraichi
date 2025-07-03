@@ -14,6 +14,7 @@ import Slider from "rc-slider";
 import usePwa from "use-pwa";
 import { useShallow } from "zustand/react/shallow";
 import useSettings from "@/app/[locale]/useSettings";
+import env from "@/env";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import styles from "./style.module.css";
 
@@ -114,16 +115,14 @@ export default function Settings(): React.JSX.Element {
                   <SignedOut>
                     <SignInButton
                       forceRedirectUrl={
-                        process.env
-                          .NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL
+                        env.NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL
                       }
                     >
                       <button className={styles.button}>{t("login")}</button>
                     </SignInButton>
                     <SignUpButton
                       forceRedirectUrl={
-                        process.env
-                          .NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL
+                        env.NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL
                       }
                     >
                       <button className={styles.button}>{t("signup")}</button>
