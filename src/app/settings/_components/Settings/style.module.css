@@ -72,4 +72,5 @@
 .slider {
   height: 28px;
   margin: 0 5px;
+  max-width: 480px;
 }

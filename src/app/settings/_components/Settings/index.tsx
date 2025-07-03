@@ -11,6 +11,7 @@ import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Slider from "rc-slider";
+import usePwa from "use-pwa";
 import { useShallow } from "zustand/react/shallow";
 import useSettings from "@/app/useSettings";
 import styles from "./style.module.css";
@@ -26,6 +27,13 @@ export default function Settings(): React.JSX.Element {
     })),
   );
   const { signOut } = useAuth();
+  const {
+    appinstalled,
+    canInstallprompt,
+    enabledPwa,
+    isPwa,
+    showInstallPrompt,
+  } = usePwa();
 
   return (
     <article className={styles.container}>
@@ -72,7 +80,7 @@ export default function Settings(): React.JSX.Element {
         </dl>
       </section>
       <section className={styles.section}>
-        <h2 className={styles.h2}>アカウント</h2>
+        <h2 className={styles.h2}>アプリとサービス</h2>
         <dl>
           <div className={styles.item}>
             <dt className={styles.term}>データの共通化</dt>
@@ -104,6 +112,20 @@ export default function Settings(): React.JSX.Element {
               </div>
             </dd>
           </div>
+          {enabledPwa && !isPwa ? (
+            <div className={styles.item}>
+              <dt className={styles.term}>アプリ</dt>
+              <dd className={styles.description}>
+                <button
+                  className={styles.button}
+                  disabled={!canInstallprompt || appinstalled}
+                  onClick={showInstallPrompt}
+                >
+                  インストール
+                </button>
+              </dd>
+            </div>
+          ) : null}
         </dl>
       </section>
     </article>
