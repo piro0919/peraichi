@@ -6,7 +6,11 @@ const env = createEnv({
     NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL: z.string(),
     NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL: z.string(),
     NEXT_PUBLIC_CONVEX_URL: z.string().url(),
-    NEXT_PUBLIC_IS_SHOWN_PWA_PROMPT: z.boolean(),
+    NEXT_PUBLIC_IS_SHOWN_PWA_PROMPT: z
+      .string()
+      .default("false")
+      .refine((s) => s === "true" || s === "false")
+      .transform((s) => s === "true"),
   },
   runtimeEnv: {
     NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL:
@@ -15,7 +19,7 @@ const env = createEnv({
       process.env.NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL,
     NEXT_PUBLIC_CONVEX_URL: process.env.NEXT_PUBLIC_CONVEX_URL,
     NEXT_PUBLIC_IS_SHOWN_PWA_PROMPT:
-      process.env.NEXT_PUBLIC_IS_SHOWN_PWA_PROMPT === "true",
+      process.env.NEXT_PUBLIC_IS_SHOWN_PWA_PROMPT,
   },
   server: {},
 });
