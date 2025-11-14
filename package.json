@@ -6,7 +6,7 @@
     "@serwist/next": "9.1.1",
     "@t3-oss/env-nextjs": "0.13.8",
     "convex": "1.25.4",
-    "feather-icons-react": "0.9.0",
+    "feather-icons-react": "1.0.0",
     "next": "15.4.6",
     "next-intl": "4.3.4",
     "next-themes": "0.4.6",
