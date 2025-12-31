@@ -43,3 +43,19 @@ next-env.d.ts
 # Serwist
 public/sw*
 public/swe-worker*
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Logs
+logs/
+*.log
+
+# OS
+Thumbs.db
+
+# Turbopack
+.turbo/
