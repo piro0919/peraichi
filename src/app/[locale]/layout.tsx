@@ -3,13 +3,17 @@ import { jaJP } from "@clerk/localizations";
 import { ClerkProvider } from "@clerk/nextjs";
 import { type Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import "rc-slider/assets/index.css";
 import "react-toastify/dist/ReactToastify.css";
-import "react-toggle/style.css";
 import { getTranslations } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import { Noto_Sans_JP } from "next/font/google";
+import {
+  Klee_One,
+  Noto_Sans_JP,
+  Noto_Serif_JP,
+  Zen_Kurenaido,
+  Zen_Maru_Gothic,
+} from "next/font/google";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Layout from "./_components/Layout";
@@ -18,6 +22,26 @@ import ConvexClientProvider from "./ConvexClientProvider";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
+  variable: "--font-noto-sans-jp",
+});
+const zenKurenaido = Zen_Kurenaido({
+  subsets: ["latin"],
+  variable: "--font-zen-kurenaido",
+  weight: "400",
+});
+const notoSerifJP = Noto_Serif_JP({
+  subsets: ["latin"],
+  variable: "--font-noto-serif-jp",
+});
+const zenMaruGothic = Zen_Maru_Gothic({
+  subsets: ["latin"],
+  variable: "--font-zen-maru-gothic",
+  weight: ["400", "500"],
+});
+const kleeOne = Klee_One({
+  subsets: ["latin"],
+  variable: "--font-klee-one",
+  weight: ["400", "600"],
 });
 
 export async function generateMetadata({
@@ -85,9 +109,25 @@ export default async function RootLayout({
     <ConvexClientProvider>
       <ClerkProvider localization={locale === "ja" ? jaJP : undefined}>
         <html lang={locale} suppressHydrationWarning={true}>
-          <body className={notoSansJP.className}>
+          <body
+            className={`${notoSansJP.className} ${notoSansJP.variable} ${zenKurenaido.variable} ${notoSerifJP.variable} ${zenMaruGothic.variable} ${kleeOne.variable}`}
+          >
             <NextIntlClientProvider>
-              <ThemeProvider enableSystem={false}>
+              <ThemeProvider
+                themes={[
+                  "light",
+                  "dark",
+                  "sepia",
+                  "ocean",
+                  "forest",
+                  "dark-midnight",
+                  "dark-mocha",
+                  "dark-emerald",
+                ]}
+                attribute="class"
+                defaultTheme="system"
+                enableSystem={true}
+              >
                 <Layout>{children}</Layout>
                 <ToastProvider />
               </ThemeProvider>

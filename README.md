@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Peraichi
+
+シンプルで美しいメモアプリ。余計なものは何もない、ただ書くだけ。
+
+## Features
+
+- **すぐに使える** - アカウント不要ですぐに使える
+- **クラウド同期** - ログインすればどこでも同期
+- **PWA対応** - オフラインでも快適に使える
+- **多彩なテーマ** - 8種類のカラーテーマ（ライト4種・ダーク4種）
+- **フォントカスタマイズ** - 5種類のGoogle Fonts対応
+- **多言語対応** - 日本語・英語
+
+## Tech Stack
+
+- [Next.js 15](https://nextjs.org/) (App Router)
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Convex](https://www.convex.dev/) - Backend
+- [Clerk](https://clerk.com/) - Authentication
+- [next-intl](https://next-intl-docs.vercel.app/) - i18n
+- [next-themes](https://github.com/pacocoursey/next-themes) - Theme management
+- [Zustand](https://zustand-demo.pmnd.rs/) - State management
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command               | Description                          |
+| --------------------- | ------------------------------------ |
+| `npm run dev`         | Start development server (Turbopack) |
+| `npm run build`       | Build for production                 |
+| `npm run type-check`  | Run TypeScript type checking         |
+| `npm run lint`        | Run ESLint                           |
+| `npm run lint:fix`    | Run ESLint with auto-fix             |
+| `npm run lint:style`  | Run StyleLint                        |
+| `npm run prettier`    | Format code with Prettier            |
 
-## Learn More
+## Themes
 
-To learn more about Next.js, take a look at the following resources:
+### Light Themes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Light (default)
+- Sepia - 目に優しい暖色系
+- Ocean - 落ち着いたブルー系
+- Forest - 自然なグリーン系
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Dark Themes
 
-## Deploy on Vercel
+- Dark (default)
+- Midnight - 深いブルーダーク
+- Mocha - 暖かみのあるダーク
+- Emerald - 深いグリーンダーク
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Fonts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Noto Sans JP (ゴシック体)
+- Noto Serif JP (明朝体)
+- Zen Maru Gothic (丸ゴシック)
+- Klee One (手書き風)
+- Monospace (等幅)
+
+## License
+
+MIT

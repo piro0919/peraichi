@@ -11,7 +11,23 @@
       "Bash(rm:*)",
       "Bash(node:*)",
       "Bash(npm --version)",
-      "Bash(git --version)"
+      "Bash(git --version)",
+      "Bash(tree:*)",
+      "Bash(ls:*)",
+      "Bash(xargs:*)",
+      "Bash(wc:*)",
+      "Bash(npm outdated:*)",
+      "Bash(npm update:*)",
+      "Bash(npm run lint:style:*)",
+      "Bash(npm show:*)",
+      "Bash(cat:*)",
+      "Bash(npx next lint:*)",
+      "Bash(npm run lint:fix:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

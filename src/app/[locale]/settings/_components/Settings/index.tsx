@@ -9,160 +9,253 @@ import {
 import { ArrowLeft } from "feather-icons-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import dynamic from "next/dynamic";
-import Slider from "rc-slider";
 import usePwa from "use-pwa";
 import { useShallow } from "zustand/react/shallow";
-import useSettings from "@/app/[locale]/useSettings";
+import useHydrated from "@/app/[locale]/useHydrated";
+import useSettings, {
+  type FontFamily,
+  type LineHeight,
+} from "@/app/[locale]/useSettings";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Slider from "@/components/ui/slider";
 import env from "@/env";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import styles from "./style.module.css";
-
-const Toggle = dynamic(async () => import("react-toggle"), { ssr: false });
 
 export default function Settings(): React.JSX.Element {
   const t = useTranslations("Settings");
   const { setTheme, theme } = useTheme();
-  const { fontSize, setFontSize } = useSettings(
+  const mounted = useHydrated();
+  const {
+    fontFamily,
+    fontSize,
+    lineHeight,
+    setFontFamily,
+    setFontSize,
+    setLineHeight,
+  } = useSettings(
     useShallow((state) => ({
+      fontFamily: state.fontFamily,
       fontSize: state.fontSize,
+      lineHeight: state.lineHeight,
+      setFontFamily: state.setFontFamily,
       setFontSize: state.setFontSize,
+      setLineHeight: state.setLineHeight,
     })),
   );
   const { signOut } = useAuth();
-  const {
-    appinstalled,
-    canInstallprompt,
-    enabledPwa,
-    isPwa,
-    showInstallPrompt,
-  } = usePwa();
+  const { canInstall, install, isInstalled, isSupported } = usePwa();
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
 
   return (
-    <article className={styles.container}>
-      <header className={styles.header}>
-        <Link href="/">
-          <ArrowLeft />
+    <div className="mx-auto w-full max-w-xl px-4 py-6">
+      <header className="mb-6 flex items-center gap-3">
+        <Link
+          className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+          href="/"
+        >
+          <ArrowLeft size={18} />
         </Link>
-        <h1 className={styles.h1}>{t("title")}</h1>
+        <h1 className="text-lg font-semibold">{t("title")}</h1>
       </header>
-      <section className={styles.section}>
-        <h2 className={styles.h2}>{t("appearance")}</h2>
-        <dl>
-          <div className={styles.item}>
-            <dt className={styles.term}>{t("language")}</dt>
-            <dd className={styles.description}>
-              <Toggle
-                icons={{
-                  checked: <div className={styles.toggleIconContainer}>EN</div>,
-                  unchecked: (
-                    <div className={styles.toggleIconContainer}>JA</div>
-                  ),
-                }}
-                onChange={(e) =>
-                  router.replace(pathname, {
-                    locale: e.currentTarget.checked ? "en" : "ja",
-                  })
+      <div className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>{t("appearance")}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">{t("language")}</span>
+              <Select
+                onValueChange={(value) =>
+                  router.replace(pathname, { locale: value })
                 }
-                defaultChecked={locale === "en"}
-              />
-            </dd>
-          </div>
-          <div className={styles.item}>
-            <dt className={styles.term}>{t("fontSize")}</dt>
-            <dd className={styles.description}>
-              <Slider
-                onChange={(fontSize) => {
-                  if (typeof fontSize !== "number") {
-                    return;
-                  }
-
-                  setFontSize(fontSize);
-                }}
-                className={styles.slider}
-                marks={{ 12: 12, 16: 16, 20: 20, 24: 24, 28: 28, 32: 32 }}
-                max={32}
-                min={12}
-                step={2}
-                value={fontSize}
-              />
-            </dd>
-          </div>
-          <div className={styles.item}>
-            <dt className={styles.term}>{t("darkMode")}</dt>
-            <dd className={styles.description}>
-              <Toggle
-                onChange={(e) =>
-                  setTheme(e.currentTarget.checked ? "dark" : "light")
-                }
-                checked={theme === "dark"}
-              />
-            </dd>
-          </div>
-        </dl>
-      </section>
-      <section className={styles.section}>
-        <h2 className={styles.h2}>{t("appAndService")}</h2>
-        <dl>
-          <div className={styles.item}>
-            <dt className={styles.term}>{t("dataSync")}</dt>
-            <dd className={styles.description}>
-              <div className={styles.wrapper}>
-                <div className={styles.buttonsContainer}>
-                  <SignedOut>
-                    <SignInButton
-                      forceRedirectUrl={
-                        env.NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL
-                      }
-                    >
-                      <button className={styles.button}>{t("login")}</button>
-                    </SignInButton>
-                    <SignUpButton
-                      forceRedirectUrl={
-                        env.NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL
-                      }
-                    >
-                      <button className={styles.button}>{t("signup")}</button>
-                    </SignUpButton>
-                  </SignedOut>
-                  <SignedIn>
-                    <button
-                      onClick={() => {
-                        signOut({
-                          redirectUrl: "/settings",
-                        });
-                      }}
-                      className={styles.button}
-                    >
-                      {t("logout")}
-                    </button>
-                  </SignedIn>
+                value={locale}
+              >
+                <SelectTrigger className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ja">日本語</SelectItem>
+                  <SelectItem value="en">English</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">{t("fontFamily")}</span>
+              <Select
+                onValueChange={(value) => setFontFamily(value as FontFamily)}
+                value={fontFamily}
+              >
+                <SelectTrigger className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="noto-sans">
+                    {t("fontFamilySansSerif")}
+                  </SelectItem>
+                  <SelectItem value="noto-serif">
+                    {t("fontFamilySerif")}
+                  </SelectItem>
+                  <SelectItem value="zen-maru">
+                    {t("fontFamilyRounded")}
+                  </SelectItem>
+                  <SelectItem value="klee">
+                    {t("fontFamilyHandwriting")}
+                  </SelectItem>
+                  <SelectItem value="monospace">
+                    {t("fontFamilyMonospace")}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">{t("fontSize")}</span>
+                <span className="text-sm text-muted-foreground">
+                  {fontSize}px
+                </span>
+              </div>
+              <div className="space-y-2">
+                <Slider
+                  max={32}
+                  min={12}
+                  onValueChange={(value) => setFontSize(value[0])}
+                  step={2}
+                  value={[fontSize]}
+                />
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>12</span>
+                  <span>16</span>
+                  <span>20</span>
+                  <span>24</span>
+                  <span>28</span>
+                  <span>32</span>
                 </div>
-                <p className={styles.description2}>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">{t("lineHeight")}</span>
+              <Select
+                onValueChange={(value) => setLineHeight(value as LineHeight)}
+                value={lineHeight}
+              >
+                <SelectTrigger className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="compact">
+                    {t("lineHeightCompact")}
+                  </SelectItem>
+                  <SelectItem value="normal">
+                    {t("lineHeightNormal")}
+                  </SelectItem>
+                  <SelectItem value="relaxed">
+                    {t("lineHeightRelaxed")}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">{t("theme")}</span>
+              <Select
+                onValueChange={setTheme}
+                value={mounted ? theme : "system"}
+              >
+                <SelectTrigger className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="system">{t("themeSystem")}</SelectItem>
+                  <SelectItem value="light">{t("themeLight")}</SelectItem>
+                  <SelectItem value="sepia">{t("themeSepia")}</SelectItem>
+                  <SelectItem value="ocean">{t("themeOcean")}</SelectItem>
+                  <SelectItem value="forest">{t("themeForest")}</SelectItem>
+                  <SelectItem value="dark">{t("themeDark")}</SelectItem>
+                  <SelectItem value="dark-midnight">
+                    {t("themeMidnight")}
+                  </SelectItem>
+                  <SelectItem value="dark-mocha">{t("themeMocha")}</SelectItem>
+                  <SelectItem value="dark-emerald">
+                    {t("themeEmerald")}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>{t("appAndService")}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="space-y-1">
+                <span className="text-sm font-medium">{t("dataSync")}</span>
+                <p className="text-sm text-muted-foreground">
                   {t("dataSyncDescription")}
                 </p>
               </div>
-            </dd>
-          </div>
-          {enabledPwa && !isPwa ? (
-            <div className={styles.item}>
-              <dt className={styles.term}>{t("app")}</dt>
-              <dd className={styles.description}>
-                <button
-                  className={styles.button}
-                  disabled={!canInstallprompt || appinstalled}
-                  onClick={showInstallPrompt}
+              <div className="flex gap-2">
+                <SignedOut>
+                  <SignInButton
+                    forceRedirectUrl={
+                      env.NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL
+                    }
+                  >
+                    <Button size="sm" variant="outline">
+                      {t("login")}
+                    </Button>
+                  </SignInButton>
+                  <SignUpButton
+                    forceRedirectUrl={
+                      env.NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL
+                    }
+                  >
+                    <Button size="sm">{t("signup")}</Button>
+                  </SignUpButton>
+                </SignedOut>
+                <SignedIn>
+                  <Button
+                    onClick={() => {
+                      signOut({
+                        redirectUrl: "/settings",
+                      });
+                    }}
+                    size="sm"
+                    variant="outline"
+                  >
+                    {t("logout")}
+                  </Button>
+                </SignedIn>
+              </div>
+            </div>
+            {isSupported && !isInstalled ? (
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">{t("app")}</span>
+                <Button
+                  onClick={(): void => {
+                    void install();
+                  }}
+                  disabled={!canInstall}
+                  size="sm"
                 >
                   {t("install")}
-                </button>
-              </dd>
-            </div>
-          ) : null}
-        </dl>
-      </section>
-    </article>
+                </Button>
+              </div>
+            ) : null}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }

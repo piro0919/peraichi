@@ -1,6 +1,0 @@
-.textarea {
-  min-height: calc(100dvh - var(--header-height));
-  padding: 6px;
-  resize: none;
-  width: 100dvw;
-}

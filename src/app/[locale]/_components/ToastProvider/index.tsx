@@ -8,6 +8,7 @@ export default function ToastProvider(): React.JSX.Element {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- SSR hydration pattern
     setMounted(true);
   }, []);
 

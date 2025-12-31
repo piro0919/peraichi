@@ -1,12 +1,9 @@
 import { SignUp as ClerkSignUp } from "@clerk/nextjs";
-import styles from "./style.module.css";
 
 export default function SignUp(): React.JSX.Element {
   return (
-    <div className={styles.container}>
-      <div className={styles.formContainer}>
-        <ClerkSignUp />
-      </div>
+    <div className="flex min-h-dvh items-center justify-center bg-background p-4">
+      <ClerkSignUp />
     </div>
   );
 }

@@ -1,78 +1,64 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import js from "@eslint/js";
-import tsParser from "@typescript-eslint/parser";
+import { fixupPluginRules } from "@eslint/compat";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+import prettierConfig from "eslint-config-prettier";
 import css from "eslint-plugin-css";
 import cssModules from "eslint-plugin-css-modules";
 import ext from "eslint-plugin-ext";
+import filenamesPlugin from "eslint-plugin-filenames";
+import noUnsanitized from "eslint-plugin-no-unsanitized";
 import perfectionist from "eslint-plugin-perfectionist";
 import promise from "eslint-plugin-promise";
+import security from "eslint-plugin-security";
 import unusedImports from "eslint-plugin-unused-imports";
 import writeGoodComments from "eslint-plugin-write-good-comments";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { fixupPluginRules } from "@eslint/compat";
-import filenamesPlugin from "eslint-plugin-filenames";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const compat = new FlatCompat({
-  allConfig: js.configs.all,
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-});
-const eslintConfig = [
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  prettierConfig,
+  globalIgnores([
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "public/sw.js",
+    "convex/_generated/**",
+    "**/*.config.js",
+    "**/*.config.mjs",
+    ".prettierrc.js",
+    "reset.d.ts",
+  ]),
   {
     files: ["**/*.{js,jsx,ts,tsx,mjs}"],
-  },
-  ...compat.extends(
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:css/recommended",
-    "plugin:no-unsanitized/recommended-legacy",
-    "plugin:promise/recommended",
-    "plugin:security/recommended-legacy",
-    "next/core-web-vitals",
-    "next/typescript",
-    "prettier",
-  ),
-  {
     languageOptions: {
-      ecmaVersion: 2024,
-      parser: tsParser,
       parserOptions: {
-        project: ["./tsconfig.json"],
+        projectService: true,
         warnOnUnsupportedTypeScriptVersion: false,
       },
-      sourceType: "module",
     },
     plugins: {
       css,
       "css-modules": cssModules,
       ext,
       filenames: fixupPluginRules(filenamesPlugin),
+      "no-unsanitized": noUnsanitized,
       perfectionist,
       promise,
+      security,
       "unused-imports": unusedImports,
       "write-good-comments": writeGoodComments,
     },
     rules: {
+      ...promise.configs.recommended.rules,
+      ...css.configs.recommended.rules,
+      ...noUnsanitized.configs.recommended.rules,
+      ...security.configs.recommended.rules,
       "@next/next/no-html-link-for-pages": "error",
       "@next/next/no-img-element": "error",
-      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-      "@typescript-eslint/consistent-type-imports": [
-        "error",
-        {
-          fixStyle: "inline-type-imports",
-          prefer: "type-imports",
-        },
-      ],
-      "@typescript-eslint/explicit-function-return-type": "error",
-      "@typescript-eslint/no-misused-promises": "error",
-      "@typescript-eslint/no-unused-vars": "error",
-      "@typescript-eslint/promise-function-async": "error",
-      "@typescript-eslint/strict-boolean-expressions": "off",
-      "css-modules/no-unused-class": [2, { camelCase: true }],
       "css-modules/no-undef-class": [2, { camelCase: true }],
+      "css-modules/no-unused-class": [2, { camelCase: true }],
       "ext/lines-between-object-properties": ["error", "never"],
       "filenames/match-exported": ["error", ["camel", "kebab", "pascal"]],
       "filenames/match-regex": "error",
@@ -85,11 +71,10 @@ const eslintConfig = [
       "no-restricted-imports": [
         "error",
         {
-          name: "next/link",
           message: "Please import from `@/i18n/navigation` instead.",
+          name: "next/link",
         },
         {
-          name: "next/navigation",
           importNames: [
             "redirect",
             "permanentRedirect",
@@ -97,6 +82,7 @@ const eslintConfig = [
             "usePathname",
           ],
           message: "Please import from `@/i18n/navigation` instead.",
+          name: "next/navigation",
         },
       ],
       "padding-line-between-statements": [
@@ -172,15 +158,14 @@ const eslintConfig = [
         "error",
         {
           groups: [
-            ["builtin", "external"],
-            "internal",
-            ["parent", "sibling"],
-            "index",
-            "object",
-            "type",
+            ["value-builtin", "value-external"],
+            "value-internal",
+            ["value-parent", "value-sibling"],
+            "value-index",
+            "type-import",
             "unknown",
           ],
-          newlinesBetween: "never",
+          newlinesBetween: 0,
           order: "asc",
           type: "natural",
         },
@@ -195,7 +180,7 @@ const eslintConfig = [
       "perfectionist/sort-jsx-props": [
         "error",
         {
-          groups: ["multiline", "shorthand", "unknown"],
+          groups: ["multiline-prop", "shorthand-prop", "prop", "unknown"],
           order: "asc",
           type: "natural",
         },
@@ -210,8 +195,8 @@ const eslintConfig = [
       "perfectionist/sort-object-types": [
         "error",
         {
-          type: "natural",
           order: "asc",
+          type: "natural",
         },
       ],
       "perfectionist/sort-objects": [
@@ -256,6 +241,24 @@ const eslintConfig = [
       "write-good-comments/write-good-comments": "error",
     },
   },
-];
+  {
+    files: ["**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          fixStyle: "inline-type-imports",
+          prefer: "type-imports",
+        },
+      ],
+      "@typescript-eslint/explicit-function-return-type": "error",
+      "@typescript-eslint/no-misused-promises": "error",
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/promise-function-async": "error",
+      "@typescript-eslint/strict-boolean-expressions": "off",
+    },
+  },
+]);
 
 export default eslintConfig;

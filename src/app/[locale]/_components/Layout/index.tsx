@@ -5,14 +5,13 @@ import { Settings } from "feather-icons-react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { type ReactNode } from "react";
-import Spacer from "react-spacer";
 import { toast } from "react-toastify";
 import useShowWindowSize from "use-show-window-size";
 import useContent from "@/app/[locale]/useContent";
+import { Button } from "@/components/ui/button";
 import env from "@/env";
 import { Link, usePathname } from "@/i18n/navigation";
 import { api } from "../../../../../convex/_generated/api";
-import styles from "./style.module.css";
 
 const PWAPrompt = dynamic(async () => import("react-ios-pwa-prompt"), {
   ssr: false,
@@ -53,28 +52,37 @@ export default function Layout({ children }: LayoutProps): React.JSX.Element {
 
   return (
     <>
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <Link className={styles.title} href="/">
-            {t("title")}
-          </Link>
-          <Spacer grow={1} />
-          {pathname === "/" ? (
-            <SignedIn>
-              <button
-                className={styles.button}
-                disabled={isContentSynced}
-                onClick={handleSaveToCloud}
+      <div className="min-h-screen bg-background">
+        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="flex h-14 items-center justify-between px-4">
+            <Link
+              className="font-(family-name:--font-zen-kurenaido) text-xl tracking-wide transition-opacity hover:opacity-70"
+              href="/"
+            >
+              {t("title")}
+            </Link>
+            <div className="flex items-center gap-2">
+              {pathname === "/" ? (
+                <SignedIn>
+                  <Button
+                    disabled={isContentSynced}
+                    onClick={handleSaveToCloud}
+                    size="sm"
+                  >
+                    {t("saveToCloud")}
+                  </Button>
+                </SignedIn>
+              ) : null}
+              <Link
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                href="/settings"
               >
-                {t("saveToCloud")}
-              </button>
-            </SignedIn>
-          ) : null}
-          <Link href="/settings">
-            <Settings />
-          </Link>
+                <Settings size={18} />
+              </Link>
+            </div>
+          </div>
         </header>
-        <main className={styles.main}>{children}</main>
+        <main>{children}</main>
       </div>
       <PWAPrompt
         appIconPath="/apple-icon.png"
